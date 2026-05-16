@@ -91,8 +91,8 @@
                 .tx  { fill: #FFD200; }
                 .tx2 { fill: #F7931A; }
                 .tx3 { fill: #E95164; }
-                .lbl { font: 700 14px Inter, sans-serif; fill: #101010; }
-                .sm  { font: 600 11px Inter, sans-serif; fill: #636366; letter-spacing: 0.08em; text-transform: uppercase; }
+                .lbl { font: 700 22px Inter, sans-serif; fill: #101010; }
+                .sm  { font: 700 17px Inter, sans-serif; fill: #636366; letter-spacing: 0.08em; text-transform: uppercase; }
               </style>
             </defs>
             <!-- mempool -->
@@ -275,10 +275,10 @@
         <defs>
           <style>
             .node { fill: #F7F7F7; stroke: #E5E5E5; stroke-width:1.5; }
-            .name { font: 800 22px Inter, sans-serif; fill: #101010; }
-            .sub  { font: 600 13px Inter, sans-serif; fill: #636366; }
-            .amt  { font: 800 18px Inter, sans-serif; fill: #fff; }
-            .lbl  { font: 600 13px Inter, sans-serif; fill: #636366; letter-spacing: 0.08em; text-transform: uppercase; }
+            .name { font: 800 30px Inter, sans-serif; fill: #101010; }
+            .sub  { font: 700 19px Inter, sans-serif; fill: #636366; }
+            .amt  { font: 800 26px Inter, sans-serif; fill: #fff; }
+            .lbl  { font: 700 19px Inter, sans-serif; fill: #636366; letter-spacing: 0.08em; text-transform: uppercase; }
           </style>
         </defs>
         <!-- Alice -->
@@ -363,11 +363,11 @@
             .node    { fill: #F7F7F7; stroke: #E5E5E5; stroke-width:1.5; }
             .node.me { fill: #FF4400; stroke: #FF4400; }
             .node.end{ fill: #0085FF; stroke: #0085FF; }
-            .nm   { font: 800 18px Inter, sans-serif; fill: #101010; }
+            .nm   { font: 800 26px Inter, sans-serif; fill: #101010; }
             .nm.w { fill: #fff; }
             .edge { stroke: #FF4400; stroke-width: 4; fill: none; }
-            .htlc { font: 700 13px Inter, sans-serif; fill: #FF4400; }
-            .sub  { font: 600 12px Inter, sans-serif; fill: #636366; }
+            .htlc { font: 700 19px Inter, sans-serif; fill: #FF4400; }
+            .sub  { font: 700 18px Inter, sans-serif; fill: #636366; }
           </style>
           <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M0 0 L10 5 L0 10 z" fill="#FF4400"/>
@@ -539,21 +539,23 @@
             .node    { fill: #F7F7F7; stroke: #E5E5E5; stroke-width:1.5; }
             .node.me { fill: #FF4400; stroke: #FF4400; }
             .node.lsp{ fill: #0085FF; stroke: #0085FF; }
-            .nm  { font: 800 18px Inter, sans-serif; fill: #101010; }
+            .nm  { font: 800 26px Inter, sans-serif; fill: #101010; }
             .nm.w{ fill: #fff; }
-            .sub { font: 600 13px Inter, sans-serif; fill: #636366; }
+            .sub { font: 700 19px Inter, sans-serif; fill: #636366; }
             .edge { stroke: #E5E5E5; stroke-width: 3; fill: none; }
             .edge.hot { stroke: #FF4400; stroke-width: 6; }
-            .lbl { font: 700 14px Inter, sans-serif; fill: #101010; }
+            .lbl { font: 700 18px Inter, sans-serif; fill: #101010; }
           </style>
           <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M0 0 L10 5 L0 10 z" fill="#FF4400"/>
           </marker>
         </defs>
         <!-- you -->
-        <g><circle cx="120" cy="180" r="56" class="node me"/><text x="120" y="178" class="nm w" text-anchor="middle">Você</text><text x="120" y="200" class="sub" text-anchor="middle" fill="#fff" opacity="0.85">Bitkit</text></g>
+        <g><circle cx="120" cy="180" r="56" class="node me"/><text x="120" y="188" class="nm w" text-anchor="middle">Você</text></g>
+        <text x="120" y="270" class="sub" text-anchor="middle">app Bitkit</text>
         <!-- LSP -->
-        <g><circle cx="500" cy="180" r="64" class="node lsp"/><text x="500" y="178" class="nm w" text-anchor="middle">LSP</text><text x="500" y="200" class="sub" text-anchor="middle" fill="#fff" opacity="0.85">canal grande</text></g>
+        <g><circle cx="500" cy="180" r="64" class="node lsp"/><text x="500" y="188" class="nm w" text-anchor="middle">LSP</text></g>
+        <text x="500" y="278" class="sub" text-anchor="middle">nó bem conectado</text>
         <!-- channel -->
         <line x1="180" y1="180" x2="436" y2="180" class="edge hot" marker-end="url(#ar2)" marker-start="url(#ar2)"/>
         <text x="308" y="160" class="lbl" text-anchor="middle">inbound + outbound</text>
