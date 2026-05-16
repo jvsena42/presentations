@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lightning no bolso · Pizza Day UFMG 2026</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+  <div class="counter" aria-hidden="true"><span>1</span> / 27</div>
+
+  <main class="deck">
+
+    <!-- ============ 1. CAPA ============ -->
+    <section class="slide cover" id="slide-1">
+      <img src="assets/img/bitkit-logo.svg" alt="Bitkit" class="cover-logo">
+      <div class="eyebrow">Bitcoin Pizza Day · UFMG · 22/mai/2026</div>
+      <h1>
+        Lightning <span class="brand">no bolso</span>
+      </h1>
+      <p class="subtitle">Autocustódia mobile com Bitkit</p>
+      <div class="meta">
+        <span>João Victor</span>
+        <span class="dot"></span>
+        <span>Synonym</span>
+        <span class="dot"></span>
+        <span>BH Bitdevs</span>
+      </div>
+    </section>
+
+    <!-- ============ 2. SOBRE MIM ============ -->
+    <section class="slide" id="slide-2">
+      <h2 class="section-tag">Sobre mim</h2>
+      <div class="about-grid">
+        <div>
+          <h1 class="title">João <span class="brand">Victor</span></h1>
+          <ul class="bullets">
+            <li>Desenvolvedor mobile na <strong>Synonym</strong></li>
+            <li>Co-host do <strong>BH Bitdevs</strong></li>
+            <li>Trabalho principalmente na <strong>Bitkit</strong> — uma carteira Bitcoin que roda seu próprio nó Lightning</li>
+            <li>Mantenho o <strong>Mandacaru</strong>, um nó Bitcoin para smartphones e tablets <span class="mono soft">github.com/jvsena42/mandacaru</span></li>
+          </ul>
+        </div>
+        <div class="qr-block">
+          <img src="assets/qr/github-jvsena42.svg" alt="QR code para github.com/jvsena42">
+          <div class="qr-label">github.com/jvsena42</div>
+          <div class="qr-url">@jvsena42</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. O QUE VOCÊ VAI APRENDER ============ -->
+    <section class="slide" id="slide-3">
+      <h2 class="section-tag">Objetivos</h2>
+      <h1 class="title">O que você vai levar dessa palestra</h1>
+      <div class="objectives">
+        <div class="obj">
+          <div class="num">01</div>
+          <div class="obj-title">Quais problemas a Lightning resolve</div>
+          <div class="obj-desc">Velocidade, custo e privacidade — onde a 1ª camada não chega.</div>
+        </div>
+        <div class="obj">
+          <div class="num">02</div>
+          <div class="obj-title">As vantagens de rodar seu próprio nó</div>
+          <div class="obj-desc">Soberania, privacidade e o significado prático de "autocustódia".</div>
+        </div>
+        <div class="obj">
+          <div class="num">03</div>
+          <div class="obj-title">Os desafios — e como o mobile contorna</div>
+          <div class="obj-desc">Por que rodar um nó Lightning é difícil, e como a Bitkit faz isso caber no seu bolso.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4. VELOCIDADE ONCHAIN ============ -->
+    <section class="slide" id="slide-4">
+      <h2 class="section-tag">Problema #1 · Velocidade</h2>
+      <div class="two-cols">
+        <div>
+          <h1 class="title">Onchain: <span class="brand">~10 min</span> por bloco</h1>
+          <p class="body muted">As transações entram em uma fila — a <strong class="text">mempool</strong> — ordenada por quem paga mais taxa por byte. Sua transação pode levar minutos ou horas até virar lei.</p>
+          <div style="margin-top:24px"><span class="pill bitcoin">block · sats/vbyte</span></div>
+        </div>
+        <div>
+          <!-- Mempool diagram -->
+          <svg class="diagram" viewBox="0 0 520 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <style>
+                .blk { fill: #F7F7F7; stroke: #E5E5E5; }
+                .tx  { fill: #FFD200; }
+                .tx2 { fill: #F7931A; }
+                .tx3 { fill: #E95164; }
+                .lbl { font: 700 14px Inter, sans-serif; fill: #101010; }
+                .sm  { font: 600 11px Inter, sans-serif; fill: #636366; letter-spacing: 0.08em; text-transform: uppercase; }
+              </style>
+            </defs>
+            <!-- mempool -->
+            <text x="0" y="20" class="sm">Mempool</text>
+            <g transform="translate(0,32)">
+              <rect class="tx2"  x="0"   y="0"  width="60" height="22" rx="3"/>
+              <rect class="tx2"  x="66"  y="0"  width="40" height="22" rx="3"/>
+              <rect class="tx"   x="112" y="0"  width="80" height="22" rx="3"/>
+              <rect class="tx"   x="198" y="0"  width="32" height="22" rx="3"/>
+              <rect class="tx3"  x="236" y="0"  width="60" height="22" rx="3"/>
+              <rect class="tx"   x="0"   y="28" width="50" height="22" rx="3"/>
+              <rect class="tx3"  x="56"  y="28" width="70" height="22" rx="3"/>
+              <rect class="tx2"  x="132" y="28" width="44" height="22" rx="3"/>
+              <rect class="tx"   x="182" y="28" width="90" height="22" rx="3"/>
+              <rect class="tx3"  x="0"   y="56" width="40" height="22" rx="3"/>
+              <rect class="tx"   x="46"  y="56" width="60" height="22" rx="3"/>
+              <rect class="tx2"  x="112" y="56" width="80" height="22" rx="3"/>
+            </g>
+            <!-- arrow -->
+            <g transform="translate(310,70)">
+              <path d="M0 0 L40 0 L40 -8 L60 4 L40 16 L40 8 L0 8 Z" fill="#FF4400"/>
+            </g>
+            <!-- block -->
+            <g transform="translate(380,12)">
+              <rect class="blk" x="0" y="0" width="140" height="120" rx="10"/>
+              <text x="70" y="20" class="sm" text-anchor="middle" fill="#FF4400">Bloco</text>
+              <rect class="tx2" x="12" y="32" width="50" height="14" rx="2"/>
+              <rect class="tx2" x="68" y="32" width="40" height="14" rx="2"/>
+              <rect class="tx2" x="12" y="52" width="60" height="14" rx="2"/>
+              <rect class="tx2" x="78" y="52" width="40" height="14" rx="2"/>
+              <rect class="tx2" x="12" y="72" width="80" height="14" rx="2"/>
+              <rect class="tx2" x="98" y="72" width="20" height="14" rx="2"/>
+              <rect class="tx2" x="12" y="92" width="40" height="14" rx="2"/>
+            </g>
+            <text x="380" y="156" class="sm" fill="#101010">~10 min</text>
+            <!-- waiting txs -->
+            <text x="0" y="200" class="sm">Esperando…</text>
+            <g transform="translate(0,212)">
+              <rect class="tx" opacity="0.5"  x="0"   y="0"  width="30" height="18" rx="3"/>
+              <rect class="tx" opacity="0.5"  x="36"  y="0"  width="70" height="18" rx="3"/>
+              <rect class="tx" opacity="0.5"  x="112" y="0"  width="40" height="18" rx="3"/>
+              <rect class="tx" opacity="0.5"  x="158" y="0"  width="50" height="18" rx="3"/>
+              <rect class="tx" opacity="0.4"  x="0"   y="24" width="60" height="18" rx="3"/>
+              <rect class="tx" opacity="0.4"  x="66"  y="24" width="40" height="18" rx="3"/>
+              <rect class="tx" opacity="0.4"  x="112" y="24" width="80" height="18" rx="3"/>
+              <rect class="tx" opacity="0.3"  x="0"   y="48" width="44" height="18" rx="3"/>
+              <rect class="tx" opacity="0.3"  x="50"  y="48" width="60" height="18" rx="3"/>
+              <rect class="tx" opacity="0.3"  x="116" y="48" width="30" height="18" rx="3"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5. VELOCIDADE LIGHTNING ============ -->
+    <section class="slide" id="slide-5">
+      <h2 class="section-tag">Solução · Velocidade</h2>
+      <div class="two-cols">
+        <div>
+          <h1 class="title">Lightning: <span class="brand">instantâneo</span></h1>
+          <p class="body muted">Pagamentos não dependem de bloco — viajam diretamente pelos canais já abertos entre nós.</p>
+        </div>
+        <div class="compare">
+          <div class="col">
+            <h4>Onchain</h4>
+            <div class="val">~10 min</div>
+            <div class="desc">Tempo médio até a primeira confirmação. 6 confirmações ≈ 1 hora.</div>
+          </div>
+          <div class="col lightning">
+            <h4>Lightning</h4>
+            <div class="val">&lt; 1 s</div>
+            <div class="desc">Pagamento liquidado instantaneamente entre as pontas.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6. CUSTO ONCHAIN ============ -->
+    <section class="slide" id="slide-6">
+      <h2 class="section-tag">Problema #2 · Custo</h2>
+      <div class="two-cols">
+        <div>
+          <h1 class="title">Onchain: paga por <span class="brand">tamanho</span>, não por valor</h1>
+          <p class="body muted">A taxa é em <strong class="text">sats/vbyte</strong>. Transferir R$ 50.000 custa o mesmo que transferir R$ 5. Ótimo pra comprar um carro — péssimo pra comprar um café.</p>
+          <div class="callout" style="margin-top:24px">
+            <strong>Analogia:</strong> é como pagar o frete de um pacote pelo peso da caixa — não importa se dentro tem ouro ou ar.
+          </div>
+        </div>
+        <div class="stack">
+          <div class="card">
+            <div class="label">Cenário A</div>
+            <p class="body"><strong>Comprar um carro · R$ 100.000</strong></p>
+            <p class="body muted">Taxa de R$ 5 = <strong class="green">0,005%</strong> do valor. Tranquilo.</p>
+          </div>
+          <div class="card">
+            <div class="label">Cenário B</div>
+            <p class="body"><strong>Comprar um café · R$ 8</strong></p>
+            <p class="body muted">Taxa de R$ 5 = <strong class="red">62,5%</strong> do valor. Impraticável.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7. CUSTO LIGHTNING ============ -->
+    <section class="slide" id="slide-7">
+      <h2 class="section-tag">Solução · Custo</h2>
+      <div class="two-cols">
+        <div>
+          <h1 class="title">Lightning: taxa <span class="brand">proporcional</span></h1>
+          <p class="body muted">Cada hop cobra uma taxa fixa pequena (base fee) + uma fração do valor roteado (ppm — partes por milhão).</p>
+          <p class="body muted" style="margin-top:16px">Em muitos casos a taxa total fica em <strong class="text">centavos de centavo</strong>. Pagamentos diretos (sem hops) podem ser gratuitos.</p>
+        </div>
+        <div class="stack">
+          <div class="card brand">
+            <div class="label">Pagar um café · R$ 8</div>
+            <p class="body"><strong>Taxa típica: R$ 0,001 - R$ 0,05</strong></p>
+            <p class="body muted">Roteado por 1-3 nós intermediários.</p>
+          </div>
+          <div class="card">
+            <div class="label">Receber pagamento direto</div>
+            <p class="body"><strong>Taxa: 0 sats</strong></p>
+            <p class="body muted">Quando você tem canal direto com a outra ponta.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 8. PRIVACIDADE ONCHAIN ============ -->
+    <section class="slide" id="slide-8">
+      <h2 class="section-tag">Problema #3 · Privacidade</h2>
+      <div class="two-cols">
+        <div>
+          <h1 class="title">Onchain: tudo é <span class="brand">público</span></h1>
+          <p class="body muted">Cada transação fica gravada para sempre em um livro-razão que <em>qualquer pessoa</em> pode ler.</p>
+          <ul class="bullets" style="margin-top:24px">
+            <li>Endereços, valores, timestamps — abertos</li>
+            <li>Heurísticas conectam endereços do mesmo dono</li>
+            <li>Empresas de chain analysis vendem esses mapas</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="label">Você (pra qualquer um)</div>
+          <p class="body mono" style="font-size:clamp(13px, 1.2vw, 17px); line-height:1.7">
+            bc1q<span class="brand">5x…87qz</span> → bc1q<span class="brand">a3…9km</span><br>
+            <span class="soft">42.000 sats · 2026-05-22 14:03:12</span>
+          </p>
+          <p class="body muted" style="margin-top:18px">Cole esse endereço no <span class="mono">mempool.space</span> e veja saldo, histórico e quem mais transacionou com ele.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 9. PRIVACIDADE LIGHTNING ============ -->
+    <section class="slide" id="slide-9">
+      <h2 class="section-tag">Solução · Privacidade</h2>
+      <div class="two-cols">
+        <div>
+          <h1 class="title">Lightning: <span class="brand">muito melhor</span>, não perfeito</h1>
+          <p class="body muted">Pagamentos viajam por túneis criptografados (onion routing — inspirado no Tor). Nós intermediários só conhecem o vizinho anterior e o próximo.</p>
+        </div>
+        <div class="stack">
+          <div class="card">
+            <div class="label">O que ainda vaza</div>
+            <p class="body">A <strong>invoice (BOLT11)</strong> expõe a pubkey do destinatário e, em alguns casos, route hints com canais privados.</p>
+          </div>
+          <div class="card brand">
+            <div class="label">Próximo passo</div>
+            <p class="body"><strong>BOLT12 (offers)</strong> esconde o destinatário com blinded paths. Já existe, mas adoção ainda é baixa.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10. CANAL LIGHTNING ============ -->
+    <section class="slide" id="slide-10">
+      <h2 class="section-tag">Como funciona · 1/4</h2>
+      <h1 class="title">O que é um <span class="brand">canal Lightning</span></h1>
+      <p class="body muted" style="max-width:60ch">Um cofre 2-de-2 entre Alice e Bob, ancorado na blockchain. Os saldos podem ser atualizados milhões de vezes sem tocar a 1ª camada.</p>
+
+      <svg class="diagram" viewBox="0 0 1100 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="margin-top:28px">
+        <defs>
+          <style>
+            .node { fill: #F7F7F7; stroke: #E5E5E5; stroke-width:1.5; }
+            .name { font: 800 22px Inter, sans-serif; fill: #101010; }
+            .sub  { font: 600 13px Inter, sans-serif; fill: #636366; }
+            .amt  { font: 800 18px Inter, sans-serif; fill: #fff; }
+            .lbl  { font: 600 13px Inter, sans-serif; fill: #636366; letter-spacing: 0.08em; text-transform: uppercase; }
+          </style>
+        </defs>
+        <!-- Alice -->
+        <circle cx="110" cy="180" r="74" class="node"/>
+        <text x="110" y="178" class="name" text-anchor="middle">Alice</text>
+        <text x="110" y="200" class="sub" text-anchor="middle">nó local</text>
+        <!-- channel bar -->
+        <g transform="translate(220,150)">
+          <rect width="660" height="60" rx="10" fill="#EFEFEF"/>
+          <rect width="440" height="60" rx="10" fill="#FF4400"/>
+          <rect x="440" width="220" height="60" rx="0" fill="#0085FF"/>
+          <rect width="660" height="60" rx="10" fill="none" stroke="#E5E5E5"/>
+          <text x="20" y="38" class="amt">700k sats</text>
+          <text x="640" y="38" class="amt" text-anchor="end">300k sats</text>
+          <text x="220" y="-10" class="lbl" text-anchor="middle">Capacidade total: 1.000.000 sats</text>
+        </g>
+        <text x="550" y="244" class="sub" text-anchor="middle">↑ saldo local da Alice  ·  saldo local do Bob ↑</text>
+        <!-- Bob -->
+        <circle cx="990" cy="180" r="74" class="node"/>
+        <text x="990" y="178" class="name" text-anchor="middle">Bob</text>
+        <text x="990" y="200" class="sub" text-anchor="middle">nó remoto</text>
+      </svg>
+    </section>
+
+    <!-- ============ 11. ABERTURA E FECHAMENTO ============ -->
+    <section class="slide" id="slide-11">
+      <h2 class="section-tag">Como funciona · 2/4</h2>
+      <h1 class="title">Abertura e fechamento — <span class="brand">2 toques</span> na 1ª camada</h1>
+      <p class="body muted" style="max-width:64ch">Tudo no meio é off-chain, instantâneo e barato. A blockchain só vê a transação que ancora o canal e a que o encerra.</p>
+      <div class="timeline" style="grid-template-columns: 1fr 1fr 1fr">
+        <div class="step active">
+          <div class="step-num">1 · Onchain</div>
+          <div class="step-text"><strong>Funding tx</strong><br>Trava os fundos no cofre 2-de-2.<br><span class="soft">~10 min, paga fee onchain</span></div>
+        </div>
+        <div class="step">
+          <div class="step-num">2 · Off-chain</div>
+          <div class="step-text"><strong>Canal vivo</strong><br>Milhões de atualizações de saldo possíveis.<br><span class="soft">Instantâneo, taxa baixíssima</span></div>
+        </div>
+        <div class="step active">
+          <div class="step-num">3 · Onchain</div>
+          <div class="step-text"><strong>Commitment tx</strong><br>Liquida o saldo final na blockchain.<br><span class="soft">Cooperativo ou unilateral</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 12. PAGAMENTO NO CANAL ============ -->
+    <section class="slide" id="slide-12">
+      <h2 class="section-tag">Como funciona · 3/4</h2>
+      <h1 class="title">Pagamento dentro do canal</h1>
+      <p class="body muted" style="max-width:60ch">Alice paga 200k sats para o Bob: o canal apenas atualiza o saldo das duas pontas — nenhuma transação onchain.</p>
+
+      <div style="margin-top:32px; display:grid; gap:24px">
+        <div>
+          <div class="lbl soft" style="font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px">Antes</div>
+          <div class="channel-bar">
+            <div class="local" style="width:70%">Alice · 700k</div>
+            <div class="remote" style="width:30%">Bob · 300k</div>
+          </div>
+        </div>
+        <div style="text-align:center; font-size:clamp(18px, 1.8vw, 24px); font-weight:700; color:var(--brand)">
+          ↓  Alice → Bob: 200k sats  ↓
+        </div>
+        <div>
+          <div class="lbl soft" style="font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px">Depois</div>
+          <div class="channel-bar">
+            <div class="local" style="width:50%">Alice · 500k</div>
+            <div class="remote" style="width:50%">Bob · 500k</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 13. ROTEAMENTO ============ -->
+    <section class="slide" id="slide-13">
+      <h2 class="section-tag">Como funciona · 4/4</h2>
+      <h1 class="title">Roteamento — pagando <span class="brand">sem canal direto</span></h1>
+      <p class="body muted" style="max-width:64ch">Alice quer pagar Dani, mas não tem canal direto. A rede encontra um caminho através de nós que ela <em>já</em> conhece.</p>
+
+      <svg class="diagram" viewBox="0 0 1100 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="margin-top:28px">
+        <defs>
+          <style>
+            .node    { fill: #F7F7F7; stroke: #E5E5E5; stroke-width:1.5; }
+            .node.me { fill: #FF4400; stroke: #FF4400; }
+            .node.end{ fill: #0085FF; stroke: #0085FF; }
+            .nm   { font: 800 18px Inter, sans-serif; fill: #101010; }
+            .nm.w { fill: #fff; }
+            .edge { stroke: #FF4400; stroke-width: 4; fill: none; }
+            .htlc { font: 700 13px Inter, sans-serif; fill: #FF4400; }
+            .sub  { font: 600 12px Inter, sans-serif; fill: #636366; }
+          </style>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#FF4400"/>
+          </marker>
+        </defs>
+        <!-- edges -->
+        <path class="edge" d="M120 140 L320 140" marker-end="url(#arrow)"/>
+        <path class="edge" d="M380 140 L580 140" marker-end="url(#arrow)"/>
+        <path class="edge" d="M640 140 L840 140" marker-end="url(#arrow)"/>
+        <path class="edge" d="M900 140 L1000 140" stroke-dasharray="6 6" marker-end="url(#arrow)"/>
+        <text x="220" y="120" class="htlc" text-anchor="middle">HTLC</text>
+        <text x="480" y="120" class="htlc" text-anchor="middle">HTLC</text>
+        <text x="740" y="120" class="htlc" text-anchor="middle">HTLC</text>
+        <text x="950" y="120" class="sub" text-anchor="middle">entrega</text>
+        <!-- nodes -->
+        <g><circle cx="80"   cy="140" r="50" class="node me"/><text x="80"   y="146" class="nm w" text-anchor="middle">Alice</text></g>
+        <g><circle cx="350"  cy="140" r="50" class="node"/>   <text x="350"  y="146" class="nm"   text-anchor="middle">Bob</text></g>
+        <g><circle cx="610"  cy="140" r="50" class="node"/>   <text x="610"  y="146" class="nm"   text-anchor="middle">Carol</text></g>
+        <g><circle cx="870"  cy="140" r="50" class="node"/>   <text x="870"  y="146" class="nm"   text-anchor="middle">Eve</text></g>
+        <g><circle cx="1050" cy="140" r="50" class="node end"/><text x="1050" y="146" class="nm w" text-anchor="middle">Dani</text></g>
+        <!-- footnote -->
+        <text x="550" y="240" class="sub" text-anchor="middle">Onion routing: cada nó só conhece o vizinho anterior e o próximo.</text>
+      </svg>
+    </section>
+
+    <!-- ============ 14. POR QUE 2ª CAMADA ============ -->
+    <section class="slide" id="slide-14">
+      <h2 class="section-tag">Decisão de design</h2>
+      <h1 class="title">Por que uma 2ª camada — e não mudar a 1ª?</h1>
+      <div class="two-cols" style="margin-top:24px">
+        <div class="card">
+          <div class="label">A pergunta natural</div>
+          <p class="body">"Por que não <strong>aumentar o tamanho do bloco</strong> e <strong>reduzir o tempo entre blocos</strong>?"</p>
+          <p class="body muted" style="margin-top:14px">Isso traria velocidade e fees mais baixas <em>na 1ª camada</em>.</p>
+        </div>
+        <div class="card brand">
+          <div class="label">O trade-off</div>
+          <p class="body">Blocos maiores = mais hardware, mais banda, mais armazenamento para validar.</p>
+          <p class="body"><strong>Menos pessoas conseguem rodar um nó completo.</strong></p>
+          <p class="body muted" style="margin-top:14px">Em TI raramente existe solução única — toda escolha tem trade-off. Bitcoin escolheu <strong class="text">descentralização</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 15. CUSTODIAL ============ -->
+    <section class="slide" id="slide-15">
+      <h2 class="section-tag">Custódia · 1/2</h2>
+      <h1 class="title">Custodial — <span class="brand">chaves de outra pessoa</span></h1>
+      <div class="two-cols" style="margin-top:24px">
+        <div>
+          <ul class="bullets">
+            <li><strong>Conveniência:</strong> baixou o app, criou conta, pronto</li>
+            <li><strong>Backup é fácil:</strong> email + senha</li>
+            <li><strong>Sem responsabilidade técnica</strong> — alguém cuida do nó pra você</li>
+          </ul>
+        </div>
+        <div class="stack">
+          <div class="card" style="border-color: rgba(233,81,100,0.3)">
+            <div class="label" style="color:var(--red)">Os custos escondidos</div>
+            <ul class="bullets" style="margin-top:6px">
+              <li>Risco de contraparte (a empresa pode quebrar, sumir ou ser hackeada)</li>
+              <li>Custódia = controle: podem congelar, bloquear ou exigir KYC</li>
+              <li>Você é um <em>cliente</em>, não um usuário soberano</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 16. NÃO-CUSTODIAL ============ -->
+    <section class="slide" id="slide-16">
+      <h2 class="section-tag">Custódia · 2/2</h2>
+      <h1 class="title">Não-custodial — <span class="brand">suas chaves</span></h1>
+      <div class="two-cols" style="margin-top:24px">
+        <div>
+          <div class="callout">
+            "Not your keys, not your coins."
+          </div>
+          <p class="body muted" style="margin-top:24px">Você é dono real dos sats. Ninguém pode censurar, congelar ou exigir documentos. Em troca: <strong class="text">você é responsável</strong> pelos backups, pela segurança das chaves e pela manutenção.</p>
+        </div>
+        <div class="stack">
+          <div class="card brand">
+            <div class="label">O que você ganha</div>
+            <p class="body">Soberania, privacidade, resistência à censura, propriedade real.</p>
+          </div>
+          <div class="card">
+            <div class="label">O que você assume</div>
+            <p class="body">Backup do seed, custódia do canal state, decisões técnicas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 17. TECNICIDADE & MANUTENÇÃO ============ -->
+    <section class="slide" id="slide-17">
+      <h2 class="section-tag">Desafios · 1/2</h2>
+      <h1 class="title">Tecnicidade &amp; <span class="brand">manutenção</span></h1>
+      <div class="two-cols" style="margin-top:24px">
+        <div class="stack">
+          <div class="card">
+            <div class="label">Atualizações</div>
+            <p class="body muted">Patches de segurança no nó BTC e no nó LN. Quem não atualiza expõe risco de fundos.</p>
+          </div>
+          <div class="card">
+            <div class="label">Backup dos channel states</div>
+            <p class="body muted">Cada pagamento muda o estado do canal — backup desatualizado pode causar <strong class="red">perda parcial dos fundos</strong>.</p>
+          </div>
+        </div>
+        <div class="stack">
+          <div class="card">
+            <div class="label">Watchtowers</div>
+            <p class="body muted">Serviços que vigiam o canal por você. Se a outra ponta tentar trapacear, a watchtower publica a evidência onchain.</p>
+          </div>
+          <div class="card">
+            <div class="label">Hardware</div>
+            <p class="body muted">Disco rápido, RAM, banda, eletricidade — um nó completo come algumas centenas de GB e fica sempre ligado.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 18. ONLINE 24/7 & LIQUIDEZ ============ -->
+    <section class="slide" id="slide-18">
+      <h2 class="section-tag">Desafios · 2/2</h2>
+      <h1 class="title">Online 24/7 &amp; <span class="brand">balanceamento</span></h1>
+      <div class="two-cols" style="margin-top:24px">
+        <div>
+          <h3 class="h3">Sempre ligado</h3>
+          <p class="body muted">Se o seu nó cai, você não recebe pagamentos — e canais com peer offline ficam parados.</p>
+        </div>
+        <div>
+          <h3 class="h3">Liquidez nos dois sentidos</h3>
+          <p class="body muted">Para <strong class="text">enviar</strong> você precisa de saldo local (outbound). Para <strong class="text">receber</strong> precisa de saldo remoto (inbound). Conseguir os dois exige planejamento — e às vezes pagar por isso.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 19. POR QUE MOBILE? ============ -->
+    <section class="slide" id="slide-19">
+      <h2 class="section-tag">Nós mobile</h2>
+      <h1 class="title">Por que rodar tudo isso no <span class="brand">celular</span>?</h1>
+      <div class="two-cols" style="margin-top:24px">
+        <div>
+          <p class="lead">O smartphone é o computador pessoal hoje. Ele está sempre com você, sempre conectado.</p>
+        </div>
+        <div class="stack">
+          <div class="card" style="border-color: rgba(233,81,100,0.3)">
+            <div class="label" style="color:var(--red)">Mas tem restrições duras</div>
+            <ul class="bullets" style="margin-top:6px">
+              <li>Bateria e CPU limitadas</li>
+              <li>Conectividade intermitente (4G/Wi-Fi caindo)</li>
+              <li>O sistema operacional <strong>mata processos em background</strong></li>
+              <li>Armazenamento pequeno comparado a um servidor</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 20. LSP ============ -->
+    <section class="slide" id="slide-20">
+      <h2 class="section-tag">Bitkit · LSP</h2>
+      <h1 class="title">LSP — <span class="brand">Lightning Service Provider</span></h1>
+      <p class="body muted" style="max-width:64ch">Um nó bem conectado que abre um canal pra você com liquidez nos dois sentidos — você ganha tempo, sem abrir mão das chaves.</p>
+
+      <svg class="diagram" viewBox="0 0 1100 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="margin-top:28px">
+        <defs>
+          <style>
+            .node    { fill: #F7F7F7; stroke: #E5E5E5; stroke-width:1.5; }
+            .node.me { fill: #FF4400; stroke: #FF4400; }
+            .node.lsp{ fill: #0085FF; stroke: #0085FF; }
+            .nm  { font: 800 18px Inter, sans-serif; fill: #101010; }
+            .nm.w{ fill: #fff; }
+            .sub { font: 600 13px Inter, sans-serif; fill: #636366; }
+            .edge { stroke: #E5E5E5; stroke-width: 3; fill: none; }
+            .edge.hot { stroke: #FF4400; stroke-width: 6; }
+            .lbl { font: 700 14px Inter, sans-serif; fill: #101010; }
+          </style>
+          <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#FF4400"/>
+          </marker>
+        </defs>
+        <!-- you -->
+        <g><circle cx="120" cy="180" r="56" class="node me"/><text x="120" y="178" class="nm w" text-anchor="middle">Você</text><text x="120" y="200" class="sub" text-anchor="middle" fill="#fff" opacity="0.85">Bitkit</text></g>
+        <!-- LSP -->
+        <g><circle cx="500" cy="180" r="64" class="node lsp"/><text x="500" y="178" class="nm w" text-anchor="middle">LSP</text><text x="500" y="200" class="sub" text-anchor="middle" fill="#fff" opacity="0.85">canal grande</text></g>
+        <!-- channel -->
+        <line x1="180" y1="180" x2="436" y2="180" class="edge hot" marker-end="url(#ar2)" marker-start="url(#ar2)"/>
+        <text x="308" y="160" class="lbl" text-anchor="middle">inbound + outbound</text>
+        <!-- network -->
+        <g><circle cx="800"  cy="80"  r="36" class="node"/><text x="800"  y="86"  class="nm" text-anchor="middle">N1</text></g>
+        <g><circle cx="920"  cy="180" r="36" class="node"/><text x="920"  y="186" class="nm" text-anchor="middle">N2</text></g>
+        <g><circle cx="800"  cy="280" r="36" class="node"/><text x="800"  y="286" class="nm" text-anchor="middle">N3</text></g>
+        <g><circle cx="1040" cy="100" r="36" class="node"/><text x="1040" y="106" class="nm" text-anchor="middle">N4</text></g>
+        <g><circle cx="1040" cy="260" r="36" class="node"/><text x="1040" y="266" class="nm" text-anchor="middle">N5</text></g>
+        <line x1="560" y1="170" x2="765" y2="92"  class="edge"/>
+        <line x1="564" y1="180" x2="884" y2="180" class="edge"/>
+        <line x1="560" y1="190" x2="765" y2="270" class="edge"/>
+        <line x1="836" y1="80"  x2="1004" y2="100" class="edge"/>
+        <line x1="836" y1="280" x2="1004" y2="260" class="edge"/>
+        <line x1="956" y1="180" x2="1004" y2="100" class="edge"/>
+        <line x1="956" y1="180" x2="1004" y2="260" class="edge"/>
+        <text x="940" y="334" class="sub" text-anchor="middle">resto da rede Lightning</text>
+      </svg>
+    </section>
+
+    <!-- ============ 21. WAKE TO PAY ============ -->
+    <section class="slide" id="slide-21">
+      <h2 class="section-tag">Bitkit · Online sob demanda</h2>
+      <h1 class="title">Wake to pay — <span class="brand">push notification</span> acorda o nó</h1>
+      <p class="body muted" style="max-width:66ch">O app vive dormindo. Quando alguém quer te pagar, o LSP dispara uma push notification silenciosa que dá ao app alguns segundos em background — o suficiente pra receber o HTLC.</p>
+      <div class="timeline" style="margin-top:28px">
+        <div class="step dim">
+          <div class="step-num">1</div>
+          <div class="step-text">App <strong>dormindo</strong><br>nó offline</div>
+        </div>
+        <div class="step active">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Push</strong> chega via FCM/APNs</div>
+        </div>
+        <div class="step active">
+          <div class="step-num">3</div>
+          <div class="step-text">App acorda em <strong>background</strong></div>
+        </div>
+        <div class="step active">
+          <div class="step-num">4</div>
+          <div class="step-text">Recebe o <strong>HTLC</strong>, atualiza canal</div>
+        </div>
+        <div class="step dim">
+          <div class="step-num">5</div>
+          <div class="step-text">App <strong>volta a dormir</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 22. FOREGROUND SERVICE ============ -->
+    <section class="slide" id="slide-22">
+      <h2 class="section-tag">Bitkit · Plano B</h2>
+      <h1 class="title">Foreground service — <span class="brand">quando o push falha</span></h1>
+      <div class="two-cols" style="margin-top:24px">
+        <div>
+          <p class="body">Push notifications <strong>não são garantidas</strong>. O Google/Apple podem atrasar, agrupar ou simplesmente não entregar.</p>
+          <p class="body muted" style="margin-top:18px">Para usuários que querem garantia, a Bitkit oferece um <strong class="text">foreground service</strong>: o app mantém uma notificação persistente e fica online o tempo todo.</p>
+        </div>
+        <div class="stack">
+          <div class="card">
+            <div class="label">Trade-off</div>
+            <p class="body"><strong class="green">+</strong> Recebe pagamentos com 100% de confiabilidade</p>
+            <p class="body"><strong class="red">−</strong> Consome mais bateria</p>
+            <p class="body"><strong class="red">−</strong> Notificação fixa na barra de status</p>
+          </div>
+          <div class="card brand">
+            <div class="label">Opt-in do usuário</div>
+            <p class="body">Cada um escolhe entre <em>bateria</em> e <em>garantia</em>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 23. EXTERNAL SCORER ============ -->
+    <section class="slide" id="slide-23">
+      <h2 class="section-tag">Bitkit · Roteamento</h2>
+      <h1 class="title">External scorer — <span class="brand">a sabedoria da rede</span></h1>
+      <div class="two-cols" style="margin-top:24px">
+        <div>
+          <p class="body">Nós Lightning escolhem rotas por probabilidade de sucesso. Quanto mais tempo online, melhor o nó "aprende" quais rotas funcionam.</p>
+          <p class="body muted" style="margin-top:18px">Um nó mobile passa <strong class="text">a maior parte do tempo offline</strong> — quase não aprende.</p>
+        </div>
+        <div class="card brand">
+          <div class="label">A solução da Bitkit</div>
+          <p class="body">Baixa periodicamente um <strong>scorer pré-computado</strong> de um servidor que observa a rede 24/7.</p>
+          <p class="body muted" style="margin-top:14px">Resultado: pagamentos saem com taxa de sucesso comparável à de um nó full-time.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 24. RGS ============ -->
+    <section class="slide" id="slide-24">
+      <h2 class="section-tag">Bitkit · Sync</h2>
+      <h1 class="title">RGS — <span class="brand">Rapid Gossip Sync</span></h1>
+      <div class="two-cols" style="margin-top:24px">
+        <div>
+          <p class="body">A topologia da rede Lightning é construída a partir de <em>gossip</em>: milhares de mensagens sobre canais abertos, fechados, taxas etc.</p>
+          <p class="body muted" style="margin-top:18px">Reconstruir tudo a cada boot do app levaria <strong class="red">muito tempo</strong> e <strong class="red">muitos dados</strong> — inviável no mobile.</p>
+        </div>
+        <div class="stack">
+          <div class="card brand">
+            <div class="label">RGS server</div>
+            <p class="body">Snapshot compactado da rede + deltas — baixado em segundos.</p>
+          </div>
+          <div class="card">
+            <div class="label">Resultado</div>
+            <p class="body muted">Boot rápido, dados móveis preservados, rotas viáveis disponíveis na hora.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 25. BITKIT NA PRÁTICA ============ -->
+    <section class="slide" id="slide-25">
+      <h2 class="section-tag">Bitkit · Na prática</h2>
+      <div class="two-cols">
+        <div>
+          <img src="assets/img/bitkit-logo.svg" alt="Bitkit" style="height:64px; margin-bottom:24px">
+          <h1 class="title">Carteira Bitcoin + nó <span class="brand">Lightning próprio</span> no celular</h1>
+          <ul class="bullets" style="margin-top:18px">
+            <li>Open source — <span class="mono soft">github.com/synonymdev</span></li>
+            <li>iOS &amp; Android, regtest/testnet/mainnet</li>
+            <li>LSP integrado, wake-to-pay, scorer externo, RGS</li>
+            <li>Suas chaves, seus canais</li>
+          </ul>
+        </div>
+        <div class="qr-card">
+          <div class="qr"><img src="assets/qr/bitkit.svg" alt="QR para bitkit.to"></div>
+          <div class="qr-title">bitkit.to</div>
+          <div class="qr-sub">Baixe e teste</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 26. RECAP ============ -->
+    <section class="slide" id="slide-26">
+      <h2 class="section-tag">Recap</h2>
+      <h1 class="title">O que ficou</h1>
+      <div class="objectives" style="margin-top:32px">
+        <div class="obj">
+          <div class="num">01</div>
+          <div class="obj-title">Lightning resolve <span class="brand">velocidade, custo e privacidade</span> da 1ª camada</div>
+          <div class="obj-desc">Pagamentos instantâneos, taxas proporcionais, roteamento por túneis criptografados.</div>
+        </div>
+        <div class="obj">
+          <div class="num">02</div>
+          <div class="obj-title">Rodar seu próprio nó é <span class="brand">soberania de verdade</span></div>
+          <div class="obj-desc">"Not your keys, not your coins" vale também — talvez principalmente — na Lightning.</div>
+        </div>
+        <div class="obj">
+          <div class="num">03</div>
+          <div class="obj-title">No mobile, <span class="brand">a Bitkit contorna os obstáculos</span></div>
+          <div class="obj-desc">LSP, wake-to-pay, foreground service, scorer externo e RGS — engenharia pra caber no bolso.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 27. OBRIGADO + PRÓXIMOS PASSOS ============ -->
+    <section class="slide" id="slide-27">
+      <h2 class="section-tag center" style="text-align:center">Obrigado!</h2>
+      <h1 class="title center" style="text-align:center; margin-bottom:0.4em">Continue a conversa no próximo <span class="brand">BH Bitdevs</span></h1>
+      <p class="body muted center" style="text-align:center; max-width:60ch; margin: 0 auto 48px">Hoje não temos tempo pra perguntas — leve as suas pro meetup. Encontros mensais, presenciais, sem chefia, sem patrocínio, só Bitcoin.</p>
+
+      <div class="qr-row">
+        <div class="qr-card">
+          <div class="qr"><img src="assets/qr/bitkit.svg" alt="QR para bitkit.to"></div>
+          <div class="qr-title">Bitkit</div>
+          <div class="qr-sub">bitkit.to</div>
+        </div>
+        <div class="qr-card">
+          <div class="qr"><img src="assets/qr/bh-bitdevs.svg" alt="QR para BH Bitdevs"></div>
+          <div class="qr-title">Próximo BH Bitdevs</div>
+          <div class="qr-sub">meetup.com/belo-horizonte-bitdevs</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
