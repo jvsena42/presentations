@@ -629,8 +629,90 @@
       </div>
     </section>
 
-    <!-- ============ 23. EXTERNAL SCORER ============ -->
+    <!-- ============ 23. RGS ============ -->
     <section class="slide" id="slide-23">
+      <h2 class="section-tag">Bitkit · Sync</h2>
+      <h1 class="title">RGS — <span class="brand">Rapid Gossip Sync</span></h1>
+      <div class="two-cols with-aside" style="margin-top:24px">
+        <div>
+          <svg class="diagram" viewBox="0 0 700 460" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <style>
+                .net-node    { fill: #F7F7F7; stroke: #8E8E8E; stroke-width: 1.5; }
+                .net-node.hub{ fill: #F7931A; stroke: #F7931A; }
+                .net-node.me { fill: #FF4400; stroke: #FF4400; }
+                .net-edge    { stroke: #C9C9C9; stroke-width: 1.5; fill: none; }
+                .net-edge.fat{ stroke: #8E8E8E; stroke-width: 3; }
+                .net-label   { font: 800 18px Inter, sans-serif; fill: #fff; text-anchor: middle; }
+                .net-label.d { fill: #101010; }
+                .net-cap     { font: 700 15px Inter, sans-serif; fill: #636366; text-anchor: middle; letter-spacing: 0.08em; text-transform: uppercase; }
+              </style>
+            </defs>
+            <!-- Edges (drawn first so circles cover endpoints) -->
+            <!-- Hub A (180,140) connects to many -->
+            <line x1="180" y1="140" x2="60"  y2="80"  class="net-edge"/>
+            <line x1="180" y1="140" x2="70"  y2="220" class="net-edge"/>
+            <line x1="180" y1="140" x2="360" y2="90"  class="net-edge fat"/>
+            <line x1="180" y1="140" x2="380" y2="240" class="net-edge fat"/>
+            <line x1="180" y1="140" x2="150" y2="350" class="net-edge"/>
+            <line x1="180" y1="140" x2="280" y2="360" class="net-edge"/>
+            <!-- Hub B (380,240) -->
+            <line x1="380" y1="240" x2="540" y2="160" class="net-edge fat"/>
+            <line x1="380" y1="240" x2="560" y2="320" class="net-edge fat"/>
+            <line x1="380" y1="240" x2="280" y2="360" class="net-edge"/>
+            <line x1="380" y1="240" x2="500" y2="420" class="net-edge"/>
+            <line x1="380" y1="240" x2="360" y2="90"  class="net-edge"/>
+            <!-- Hub C (540,160) -->
+            <line x1="540" y1="160" x2="640" y2="80"  class="net-edge"/>
+            <line x1="540" y1="160" x2="660" y2="220" class="net-edge"/>
+            <line x1="540" y1="160" x2="360" y2="90"  class="net-edge"/>
+            <!-- Leaf connections -->
+            <line x1="60"  y1="80"  x2="70"  y2="220" class="net-edge"/>
+            <line x1="640" y1="80"  x2="660" y2="220" class="net-edge"/>
+            <line x1="560" y1="320" x2="500" y2="420" class="net-edge"/>
+            <line x1="280" y1="360" x2="500" y2="420" class="net-edge"/>
+            <line x1="150" y1="350" x2="280" y2="360" class="net-edge"/>
+            <!-- "Você" node (mobile) connects to one hub -->
+            <line x1="60"  y1="400" x2="180" y2="140" class="net-edge fat" stroke="#FF4400"/>
+            <!-- Nodes -->
+            <circle cx="180" cy="140" r="34" class="net-node hub"/>
+            <text   x="180" y="146" class="net-label">A</text>
+            <circle cx="380" cy="240" r="36" class="net-node hub"/>
+            <text   x="380" y="246" class="net-label">B</text>
+            <circle cx="540" cy="160" r="30" class="net-node hub"/>
+            <text   x="540" y="166" class="net-label">C</text>
+            <circle cx="60"  cy="80"  r="20" class="net-node"/>
+            <circle cx="70"  cy="220" r="18" class="net-node"/>
+            <circle cx="360" cy="90"  r="22" class="net-node"/>
+            <circle cx="640" cy="80"  r="20" class="net-node"/>
+            <circle cx="660" cy="220" r="18" class="net-node"/>
+            <circle cx="560" cy="320" r="22" class="net-node"/>
+            <circle cx="280" cy="360" r="20" class="net-node"/>
+            <circle cx="500" cy="420" r="18" class="net-node"/>
+            <circle cx="150" cy="350" r="18" class="net-node"/>
+            <!-- "Você" -->
+            <circle cx="60"  cy="400" r="26" class="net-node me"/>
+            <text   x="60"  y="406" class="net-label">você</text>
+            <!-- Captions -->
+            <text x="350" y="455" class="net-cap">~18k nós · ~50k canais</text>
+          </svg>
+        </div>
+        <div class="stack">
+          <p class="body">A <strong class="text">topologia da rede</strong> é construída a partir de <em>gossip</em> — mensagens sobre canais abertos, fechados e taxas.</p>
+          <div class="card brand">
+            <div class="label">RGS server</div>
+            <p class="body">Snapshot compactado da rede + deltas — baixado em segundos pelo nó mobile.</p>
+          </div>
+          <div class="card">
+            <div class="label">Resultado</div>
+            <p class="body muted">Boot rápido, dados móveis preservados, rotas viáveis na hora.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 24. EXTERNAL SCORER ============ -->
+    <section class="slide" id="slide-24">
       <h2 class="section-tag">Bitkit · Roteamento</h2>
       <h1 class="title">External scorer — <span class="brand">a sabedoria da rede</span></h1>
       <div class="two-cols" style="margin-top:24px">
@@ -642,28 +724,6 @@
           <div class="label">A solução da Bitkit</div>
           <p class="body">Baixa periodicamente um <strong>scorer pré-computado</strong> de um servidor que observa a rede 24/7.</p>
           <p class="body muted" style="margin-top:14px">Resultado: pagamentos saem com taxa de sucesso comparável à de um nó full-time.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 24. RGS ============ -->
-    <section class="slide" id="slide-24">
-      <h2 class="section-tag">Bitkit · Sync</h2>
-      <h1 class="title">RGS — <span class="brand">Rapid Gossip Sync</span></h1>
-      <div class="two-cols" style="margin-top:24px">
-        <div>
-          <p class="body">A topologia da rede Lightning é construída a partir de <em>gossip</em>: milhares de mensagens sobre canais abertos, fechados, taxas etc.</p>
-          <p class="body muted" style="margin-top:18px">Reconstruir tudo a cada boot do app levaria <strong class="red">muito tempo</strong> e <strong class="red">muitos dados</strong> — inviável no mobile.</p>
-        </div>
-        <div class="stack">
-          <div class="card brand">
-            <div class="label">RGS server</div>
-            <p class="body">Snapshot compactado da rede + deltas — baixado em segundos.</p>
-          </div>
-          <div class="card">
-            <div class="label">Resultado</div>
-            <p class="body muted">Boot rápido, dados móveis preservados, rotas viáveis disponíveis na hora.</p>
-          </div>
         </div>
       </div>
     </section>
