@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apresentações · jvsena42</title>
+  <style>
+    :root {
+      --brand: #FF4400;
+      --bg: #FFFFFF;
+      --text: #101010;
+      --text-muted: #636366;
+      --text-soft: #8E8E8E;
+      --surface: #F7F7F7;
+      --border: #E5E5E5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6vw;
+    }
+    main { max-width: 760px; width: 100%; }
+    .eyebrow {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brand);
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.025em;
+      margin-bottom: 14px;
+    }
+    h1 .brand { color: var(--brand); }
+    p.lead {
+      font-size: clamp(17px, 1.8vw, 21px);
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 44px;
+      max-width: 56ch;
+    }
+    h2 {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .list { display: grid; gap: 12px; }
+    a.card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      transition: border-color 120ms ease, transform 120ms ease;
+    }
+    a.card:hover {
+      border-color: var(--brand);
+      transform: translateY(-2px);
+    }
+    a.card .title {
+      font-size: clamp(18px, 2vw, 22px);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    a.card .meta {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    a.card .meta .dot {
+      display: inline-block;
+      width: 4px; height: 4px;
+      background: var(--brand);
+      border-radius: 50%;
+      vertical-align: middle;
+      margin: 0 8px;
+    }
+    footer {
+      margin-top: 56px;
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { color: var(--brand); }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">jvsena42 · slides</div>
+    <h1>Apresentações<span class="brand">.</span></h1>
+    <p class="lead">Slides técnicos do João Victor (Synonym · BH Bitdevs) sobre Bitcoin, Lightning Network e mobile.</p>
+
+    <h2>2026</h2>
+    <div class="list">
+      <a class="card" href="2026/pizza_day_ufmg/">
+        <div class="title">Lightning no bolso — autocustódia mobile com Bitkit</div>
+        <div class="meta">Bitcoin Pizza Day<span class="dot"></span>UFMG<span class="dot"></span>22/mai/2026</div>
+      </a>
+    </div>
+
+    <footer>
+      <a href="https://github.com/jvsena42/presentations">github.com/jvsena42/presentations</a>
+    </footer>
+  </main>
+</body>
+</html>
